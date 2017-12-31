@@ -1,18 +1,25 @@
 <!--The content below is only a placeholder and can be replaced.-->
-
+<br>
 <div class="container">
-  <form #f="ngForm" novalidate autocomplete="off">
     <div class="form-group">
       <input type="text" name="title" class="form-control" placeholder="Title" [(ngModel)]="task.title" required >
     </div>
     <div class="form-group">
       <input type="text" name="description" class="form-control"  placeholder="Description" [(ngModel)]="task.description">
-    </div>
+    </div>    
     <div class="form-group">
-      <input type="date" name="compDate" class="form-control" placeholder="Completion Date" [(ngModel)]="task.completionDate" required>
+      <button name="submit" class="btn btn-primary" (click)="addTask()">Add Task</button>
     </div>
-    <div class="form-group">
-      <button name="submit" class="btn btn-primary" (click)="addTask()">Submit Task</button>
-    </div>
-  </form>
+
 </div>
+<br>
+<div class="container" *ngIf="taskList.length; else notasks" >
+    <div *ngFor="let t of taskList | slice:0:2 as topTasks, index as i">
+        {{i+1}}/{{topTasks.length}}: {{t.title}} - {{t.description}}
+    </div>
+</div>
+<ng-template #notasks>
+    <div class="container">
+      <h1>Hurray! No task Available</h1>
+    </div>
+</ng-template>
